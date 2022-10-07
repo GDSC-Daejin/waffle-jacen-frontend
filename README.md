@@ -1,4 +1,4 @@
-# Vite + React + Zustand + Eslint Boilerplate
+# 와플 Jacen 팀 - Frontend
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/61281239/177843432-fa16e0b3-cb3e-4fc5-808e-8becce751d12.png" />
