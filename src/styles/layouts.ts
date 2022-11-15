@@ -6,10 +6,11 @@ export const LayoutContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 1140px;
+  max-width: 1440px;
   margin: 0 auto;
   min-width: 320px;
   flex: 1;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 export const ContainerInner = styled.div`
   width: 92%;

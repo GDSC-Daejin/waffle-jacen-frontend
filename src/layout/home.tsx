@@ -38,12 +38,6 @@ const HomeLayout = () => {
   };
   return (
     <StackWrapper>
-      <div>
-        <StackImage src={viteLogo} className="logo" alt="Vite logo" />
-        <StackImage src={reactLogo} className="react" alt="React logo" />
-      </div>
-      <StackTitle>Vite + React + Eslint + Prettier</StackTitle>
-      <StackSubtitle>Boilerplate</StackSubtitle>
       <StackInputButtonWrapper>
         {/*TODO값 입력하기*/}
         <StackInput
