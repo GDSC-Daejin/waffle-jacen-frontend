@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import reactLogo from '../assets/react.svg';
-import viteLogo from '../assets/vite.svg';
 import {
   StackButton,
-  StackImage,
   StackInput,
   StackInputButtonWrapper,
-  StackSubtitle,
-  StackTitle,
   StackWrapper,
   TodoSection,
   TodoWrapper,
 } from './home.styled';
 import { todoStore } from '../store/todoStore';
 import TodoCard from '../components/TodoCard';
+import { WrapperDesign } from '../components/TodoProgress/styled';
 
 const HomeLayout = () => {
   // input 값 받기
@@ -37,28 +33,30 @@ const HomeLayout = () => {
     }
   };
   return (
-    <StackWrapper>
-      <StackInputButtonWrapper>
-        {/*TODO값 입력하기*/}
-        <StackInput
-          placeholder={'할 일을 입력해요'}
-          value={content ?? ''} //content의 타입이 string과 null이므로 ?? ''로 값을 설정
-          type={'text'}
-          onChange={(e) => setContent(e.target.value)}
-          onKeyPress={handleOnKeyPress} //엔터를 누르면 addTodoHandler를 실행
-        />
-        {/*TODO 추가하기 input 값이 없다면 추가 안됨*/}
-        <StackButton onClick={() => addTodoHandler()}>추가하기</StackButton>
-      </StackInputButtonWrapper>
-      <TodoSection>
-        {/*TODO 데이터 뿌리기*/}
-        {todos.map((todo) => (
-          <TodoWrapper key={todo.id}>
-            <TodoCard {...todo} />
-          </TodoWrapper>
-        ))}
-      </TodoSection>
-    </StackWrapper>
+    <WrapperDesign>
+      <StackWrapper>
+        <StackInputButtonWrapper>
+          {/*TODO값 입력하기*/}
+          <StackInput
+            placeholder={'할 일을 입력해요'}
+            value={content ?? ''} //content의 타입이 string과 null이므로 ?? ''로 값을 설정
+            type={'text'}
+            onChange={(e) => setContent(e.target.value)}
+            onKeyPress={handleOnKeyPress} //엔터를 누르면 addTodoHandler를 실행
+          />
+          {/*TODO 추가하기 input 값이 없다면 추가 안됨*/}
+          <StackButton onClick={() => addTodoHandler()}>추가하기</StackButton>
+        </StackInputButtonWrapper>
+        <TodoSection>
+          {/*TODO 데이터 뿌리기*/}
+          {todos.map((todo) => (
+            <TodoWrapper key={todo.id}>
+              <TodoCard {...todo} />
+            </TodoWrapper>
+          ))}
+        </TodoSection>
+      </StackWrapper>
+    </WrapperDesign>
   );
 };
 

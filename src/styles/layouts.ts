@@ -10,7 +10,7 @@ export const LayoutContainer = styled.div`
   margin: 0 auto;
   min-width: 320px;
   flex: 1;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.grey100};
 `;
 export const ContainerInner = styled.div`
   width: 92%;
