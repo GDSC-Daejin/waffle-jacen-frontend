@@ -1,12 +1,13 @@
 import { windowSize } from './windowSize';
-import { fontSize } from './fontSize';
-
-import { lightColors } from './lightColors';
+import { fontSizes } from './fontSizes';
+import { fontWeights } from './fontWeights';
+import { assetColors } from './assetColors';
 
 import { DefaultTheme } from 'styled-components';
 
 export const theme: DefaultTheme = {
-  colors: lightColors,
+  colors: assetColors,
   windowSize: windowSize,
-  fontSize: fontSize,
+  fontSize: fontSizes,
+  fontWeight: fontWeights,
 };

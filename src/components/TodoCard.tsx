@@ -23,8 +23,8 @@ const TodoWrapper = styled.div`
   }
 `;
 const TodoContent = styled.div<{ isCompleted: boolean }>`
-  color: ${({ theme }) => theme.colors.grey50};
-  font-size: ${({ theme }) => theme.fontSize.body2};
+  color: ${({ theme }) => theme.colors.grey600};
+  font-size: ${({ theme }) => theme.fontSize.textL};
   ${({ isCompleted }) =>
     isCompleted &&
     css`
@@ -36,8 +36,8 @@ const TodoButton = styled.button`
   padding: 5px 10px;
   border: 1px solid ${({ theme }) => theme.colors.grey600};
   border-radius: 10px;
-  color: ${({ theme }) => theme.colors.grey50};
-  font-size: ${({ theme }) => theme.fontSize.body3};
+  color: ${({ theme }) => theme.colors.grey600};
+  font-size: ${({ theme }) => theme.fontSize.textS};
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
