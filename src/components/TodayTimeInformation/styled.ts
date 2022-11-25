@@ -21,5 +21,5 @@ export const ClockTimeWrapper = styled.div`
 `;
 export const Time = styled.div`
   display: flex;
-  font-size: ${({ theme }) => theme.fontSize.titleS};
+  font-size: ${({ theme }) => theme.fontSize.textL};
 `;

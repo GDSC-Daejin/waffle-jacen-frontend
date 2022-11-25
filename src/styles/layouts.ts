@@ -4,9 +4,8 @@ import styled from 'styled-components';
 
 export const LayoutContainer = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 1440px;
+  height: 700px;
+  max-width: 940px;
   margin: 0 auto;
   min-width: 320px;
   flex: 1;
@@ -18,4 +17,9 @@ export const ContainerInner = styled.div`
   max-width: calc(100% - 48px);
   margin: 0 auto;
   padding: 0 20px;
+`;
+
+export const NavigationBlock = styled.div`
+  width: 100%;
+  height: 50px;
 `;

@@ -7,7 +7,7 @@ export const NavigationDesign = styled.div`
   position: relative;
   width: 100%;
   height: 80px;
-  max-width: 1440px;
+  max-width: 1240px;
   margin: 0 auto;
   min-width: 320px;
   background-color: ${(props) => props.theme.colors.white};
@@ -16,6 +16,8 @@ export const NavigationDesign = styled.div`
 `;
 export const LogoWrapper = styled.div`
   display: flex;
+  gap: 10px;
+  cursor: pointer;
 `;
 export const GDSCLogoWrapper = styled.div`
   display: flex;
@@ -24,5 +26,4 @@ export const GDSCLogoWrapper = styled.div`
 export const LogoTitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
 `;

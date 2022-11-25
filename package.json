@@ -13,6 +13,7 @@
   "bin": "./bin/react-vite-todo-boilerplate.js",
   "dependencies": {
     "@gdsc-dju/styled-components-theme": "^0.0.52",
+    "axios": "^1.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.1",

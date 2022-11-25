@@ -7,11 +7,18 @@ import {
   LogoWrapper,
   NavigationDesign,
 } from './styled';
+import { useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
+  const navigate = useNavigate();
+
   return (
     <NavigationDesign>
-      <LogoWrapper>
+      <LogoWrapper
+        onClick={() => {
+          navigate('/');
+        }}
+      >
         <GDSCLogoWrapper>
           <GDSCLogo />
         </GDSCLogoWrapper>
