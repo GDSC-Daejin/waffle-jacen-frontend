@@ -89,7 +89,7 @@ export const MenuStick = styled.div`
   width: 30px;
   height: 19px;
   border-radius: 10px 0px 0px 10px;
-  background-color: ${({ theme }) => theme.colors.tossBlue};
+  background-color: ${({ theme }) => theme.colors.tossBlue500};
   position: absolute;
   right: 0;
 `;

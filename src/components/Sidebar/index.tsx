@@ -60,9 +60,9 @@ const Sidebar = () => {
             </MenuWrapper>
             <MenuWrapper
               onClick={() => {
-                navigate('/calender');
+                navigate('/calendar');
               }}
-              isSelected={isMenuSelected('calender')}
+              isSelected={isMenuSelected('calendar')}
             >
               <CalenderIcon />
               <MenuName>Calender</MenuName>

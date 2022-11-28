@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubTitle, Title, WrapperDesign } from '../TodoProgress/styled';
 import {
   ClockTimeWrapper,
@@ -19,14 +19,14 @@ const TodayTimeInformation = () => {
   getStringDate();*/
   const [date, setDate] = useState(new Date());
 
-  const currentDate = `${date.getFullYear()}-${
+  /*const currentDate = `${date.getFullYear()}-${
     date.getMonth() + 1
-  }-${date.getDate()}`;
+  }-${date.getDate()}`;*/
 
   const [currentTime, setCurrentTime] = useState('00:00:00');
+  const [currentDate, setCurrentDate] = useState('');
 
   const getCurrentTime = () => {
-    const date = new Date();
     const hour = String(date.getHours()).padStart(2, '0');
     const minute = String(date.getMinutes()).padStart(2, '0');
     const second = String(date.getSeconds()).padStart(2, '0');
@@ -39,9 +39,34 @@ const TodayTimeInformation = () => {
 
   showCurrentTime();
 
-  useEffect(()=> {
-    showCurrentTime();
-  },[])
+  const getCurrentDate = () => {
+    let day: string;
+    switch (date.getDay()) {
+      case 1:
+        day = 'Mon';
+      case 2:
+        day = 'Tue';
+      case 3:
+        return 'Wed';
+      case 4:
+        return 'Thu';
+      case 5:
+        return 'Fri';
+      case 6:
+        return 'Sat';
+      default:
+        return 'Sun';
+    }
+
+    setCurrentDate(`${date.getFullYear()}-${
+        date.getMonth() + 1
+    }-${date.getDate()} ${date.getDay()}`)
+  };
+
+  useEffect(() => {
+    getCurrentTime();
+    getCurrentDate();
+  }, []);
 
   return (
     <WrapperDesign>
