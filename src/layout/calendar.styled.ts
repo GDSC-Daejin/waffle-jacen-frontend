@@ -58,9 +58,13 @@ export const TableData = styled.td`
   color: ${({ theme }) => theme.colors.grey900};
   padding: 8px;
   position: relative;
+  width: 14.3%;
 `;
 
-export const DisplayDate = styled.div<{ isToday?: boolean; isSelected?: boolean }>`
+export const DisplayDate = styled.div<{
+  isToday?: boolean;
+  isSelected?: boolean;
+}>`
   color: ${({ isToday }) => isToday && '#F8F7FA'};
   background-color: ${({ isToday, isSelected }) =>
     isSelected ? '#42a5f5' : isToday ? '#FBBC04' : ''};

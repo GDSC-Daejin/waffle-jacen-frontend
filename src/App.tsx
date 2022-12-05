@@ -1,6 +1,6 @@
 import Layout from './layout';
 import Navigation from './components/common/Navigation';
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/common/Sidebar';
 
 
 function App() {

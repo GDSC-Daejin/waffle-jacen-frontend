@@ -11,11 +11,11 @@ import {
   SidebarInner,
   SidebarWrapper,
 } from './styled';
-import SettingIcon from '../../assets/SettingIcon';
-import HomeIcon from '../../assets/HomeIcon';
-import CalenderIcon from '../../assets/CalenderIcon';
-import LogoutIcon from '../../assets/LogoutIcon';
-import TrashIcon from '../../assets/TrashIcon';
+import SettingIcon from '../../../assets/SettingIcon';
+import HomeIcon from '../../../assets/HomeIcon';
+import CalenderIcon from '../../../assets/CalenderIcon';
+import LogoutIcon from '../../../assets/LogoutIcon';
+import TrashIcon from '../../../assets/TrashIcon';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router';
 
