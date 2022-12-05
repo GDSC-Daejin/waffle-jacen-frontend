@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubTitle, Title, WrapperDesign } from '../TodoProgress/styled';
 import {
   ClockTimeWrapper,
@@ -7,9 +7,67 @@ import {
   TodayInformation,
 } from './styled';
 import Clock from '../../assets/Clock';
-import Calender from '../../assets/Calender';
+import CalenderIcon from '../../assets/CalenderIcon';
 
 const TodayTimeInformation = () => {
+  /*const [currentDate, setCurrnetDate] = useState('')
+  const getStringDate = (currentDate: {
+    toISOString: () => string | any[];
+  }) => {
+    return currentDate.toISOString().slice(0, 10);
+  };
+  getStringDate();*/
+  const [date, setDate] = useState(new Date());
+
+  /*const currentDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;*/
+
+  const [currentTime, setCurrentTime] = useState('00:00:00');
+  const [currentDate, setCurrentDate] = useState('');
+
+  const getCurrentTime = () => {
+    const hour = String(date.getHours()).padStart(2, '0');
+    const minute = String(date.getMinutes()).padStart(2, '0');
+    const second = String(date.getSeconds()).padStart(2, '0');
+    setCurrentTime(`${hour}:${minute}:${second}`);
+  };
+
+  const showCurrentTime = () => {
+    setInterval(getCurrentTime, 1000);
+  };
+
+  showCurrentTime();
+
+  const getCurrentDate = () => {
+    let day: string;
+    switch (date.getDay()) {
+      case 1:
+        day = 'Mon';
+      case 2:
+        day = 'Tue';
+      case 3:
+        return 'Wed';
+      case 4:
+        return 'Thu';
+      case 5:
+        return 'Fri';
+      case 6:
+        return 'Sat';
+      default:
+        return 'Sun';
+    }
+
+    setCurrentDate(`${date.getFullYear()}-${
+        date.getMonth() + 1
+    }-${date.getDate()} ${date.getDay()}`)
+  };
+
+  useEffect(() => {
+    getCurrentTime();
+    getCurrentDate();
+  }, []);
+
   return (
     <WrapperDesign>
       <Title>현재 시간</Title>
@@ -18,14 +76,14 @@ const TodayTimeInformation = () => {
           <SubTitle>시간</SubTitle>
           <ClockTimeWrapper>
             <Clock />
-            <Time>12:30:43</Time>
+            <Time>{currentTime}</Time>
           </ClockTimeWrapper>
         </TimeWrapper>
         <TimeWrapper>
           <SubTitle>날짜</SubTitle>
           <ClockTimeWrapper>
-            <Calender />
-            <Time>2000-01-24</Time>
+            <CalenderIcon />
+            <Time>{currentDate}</Time>
           </ClockTimeWrapper>
         </TimeWrapper>
       </TodayInformation>

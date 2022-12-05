@@ -1,5 +1,12 @@
 import React from 'react';
-import { Count, SubTitle, Title, TodoCounter, TodoCounterWrapper, WrapperDesign } from './styled';
+import {
+  Count,
+  SubTitle,
+  Title,
+  TodoCounter,
+  TodoCounterWrapper,
+  WrapperDesign,
+} from './styled';
 
 const TodoProgress = () => {
   return (

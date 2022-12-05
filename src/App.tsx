@@ -1,4 +1,7 @@
 import Layout from './layout';
+import Navigation from './components/common/Navigation';
+import Sidebar from './components/common/Sidebar';
+
 
 function App() {
   return (
@@ -10,7 +13,19 @@ function App() {
         minHeight: '100vh',
       }}
     >
-      <Layout />
+      <Navigation />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          width: '1240px',
+          minHeight: '100%',
+          margin: '0 auto',
+        }}
+      >
+        <Sidebar />
+        <Layout />
+      </div>
     </div>
   );
 }
