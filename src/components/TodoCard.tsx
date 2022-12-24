@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled, { css } from 'styled-components';
-import { ITodoType } from '../types/todo';
+import {ITodoType, ITodoType2} from '../types/todo';
 import { todoStore } from '../store/todoStore';
 import axios from "axios";
 
@@ -27,7 +27,7 @@ const TodoContent = styled.div<{ isCompleted: boolean }>`
   color: ${({ theme }) => theme.colors.grey600};
   font-size: ${({ theme }) => theme.fontSize.textL};
   ${({ isCompleted }) =>
-    isCompleted &&
+    !isCompleted &&
     css`
       text-decoration: line-through;
       color: ${({ theme }) => theme.colors.grey600};
@@ -52,11 +52,20 @@ const TodoButton = styled.button`
     margin-left: 10px;
   }
 `;
-const TodoCard: React.FC<ITodoType> = ({ id, content, isCompleted, date }) => {
+const TodoCard: React.FC<ITodoType2> = ({
+  id,
+  title,
+  content,
+  completed,
+  deleted,
+  createdDate,
+  updatedDate,
+  deletedDate,
+}) => {
   const { removeTodo, toggleCompletedTodo, updateTodo } = todoStore();
   return (
     <TodoWrapper onClick={() => toggleCompletedTodo(id)}>
-      <TodoContent isCompleted={isCompleted}>{content}</TodoContent>
+      <TodoContent isCompleted={completed}>{content}</TodoContent>
       <div>
         <TodoButton onClick={() => updateTodo(id, content)}>
           수정하기

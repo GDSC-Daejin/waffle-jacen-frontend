@@ -8,44 +8,34 @@ export interface ITodoType {
 }
 
 export interface ITodoStoreType {
-  todos: ITodoType[];
+  todos: ITodoType2[];
   addTodo: (content: string) => void;
-  removeTodo: (id: number) => void;
-  updateTodo: (id: number, content: string) => void;
-  toggleCompletedTodo: (id: number) => void;
+  removeTodo: (id: string) => void;
+  updateTodo: (id: string, content: string) => void;
+  toggleCompletedTodo: (id: string) => void;
 }
-export interface GetTodoType {
+export interface GetTodoListType {
   success: boolean;
   data: {
-    todos: [
-      {
-        index: number;
-        title: string;
-        content?: string;
-        is_done: boolean;
-        created_date: string;
-        updated_date: string;
-      },
-    ];
+    todos: ITodoType2[];
+    paging: {
+      total_pages: number;
+      current_page: number;
+      is_last_page: boolean;
+    };
   };
-}
-export interface GETTodoListType {
-  paging: {
-    total_pages: number;
-    current_page: number;
-    is_last_page: boolean;
-  };
-  todos: [
-    {
-      todo_id: string;
-      title: string;
-      is_done: boolean;
-      created_date: string; // ISO 8061
-      updated_date: string;
-    },
-  ];
 }
 export interface PostTodoType {
   title: string;
   content?: string;
+}
+export interface ITodoType2 {
+  id: string;
+  title: string;
+  content: string;
+  completed: boolean;
+  deleted: boolean;
+  createdDate: string;
+  updatedDate: string;
+  deletedDate: string;
 }

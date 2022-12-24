@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StackButton,
   StackInput,
@@ -11,6 +11,7 @@ import { todoStore } from '../store/todoStore';
 import TodoCard from '../components/TodoCard';
 import { WrapperDesign } from '../components/TodoProgress/styled';
 import axios from 'axios';
+import { ITodoType2 } from '../types/todo';
 
 const HomeLayout = () => {
    /*const getTodoData = async () => {
@@ -19,7 +20,7 @@ const HomeLayout = () => {
     console.log(todoData);
   };
   getTodoData();*/
-  const getTodoData = async () => {
+  /*const getTodoData = async () => {
     try {
       return await axios.get('https://waffle.gq/todo');
     } catch (error) {
@@ -29,21 +30,47 @@ const HomeLayout = () => {
   };
 
   const asdf = async () => {
-    const todo = await getTodoData();
+    const todos = await getTodoData();
 
-    if (todo) {
-      // eslint-disable-next-line no-console
-      console.log('asdf' + todo);
+    if (todos) {
+      todos.data.todos.forEach((todo: any) => {
+        // eslint-disable-next-line no-console
+        console.log(todo.content);
+        addTodo(todo.content);
+      });
     }
-  };
-
-  asdf();
+  };*/
 
 
+  /*useEffect(() => {
+    fetch('https://waffle.gq/todo')
+      .then((res) => res.json())
+      .then((data) => {
+        // eslint-disable-next-line no-console
+        console.log(data);
+        data.data.todos.forEach((todo: any) => {
+          // eslint-disable-next-line no-console
+          console.log(todo.content);
+          addTodo(todo.content);
+        });
+      });
+  }, []);
+*/
   // input 값 받기
   const [content, setContent] = useState<string | null>(null);
   //store 데이터 받아오기
   const { todos, addTodo } = todoStore();
+
+  const [todoList, setTodoList] = useState<ITodoType2>({
+    id: '',
+    title: '',
+    content: '',
+    completed: false,
+    deleted: false,
+    createdDate: '',
+    updatedDate: '',
+    deletedDate: '',
+  });
 
   const addTodoHandler = () => {
     //내용이 입력되었으면 TODO 추가
@@ -60,6 +87,33 @@ const HomeLayout = () => {
       addTodoHandler();
     }
   };
+
+  const getTodoList = async () => {
+    const response = await axios.get('https://waffle.gq/todo');
+    console.log(response.data)
+    return response.data;
+  };
+  // eslint-disable-next-line no-console
+  const showTodoList = async () => {
+    const res = await getTodoList()
+
+    if (res.success) {
+      for (let i=0; i<res.data.todos.length; i++) {
+        todos[i] = res.data.todos[i];
+      }
+      res.data.todos.forEach((todo: ITodoType2) => {
+        console.log(todo.content);
+        setTodoList(todo);
+      })
+    }
+    console.log('캬캬캬')
+  }
+  useEffect(() => {
+    showTodoList();
+  },[])
+
+  console.log(todos)
+
   return (
     <WrapperDesign>
       <StackWrapper>
