@@ -10,8 +10,36 @@ import {
 import { todoStore } from '../store/todoStore';
 import TodoCard from '../components/TodoCard';
 import { WrapperDesign } from '../components/TodoProgress/styled';
+import axios from 'axios';
 
 const HomeLayout = () => {
+   /*const getTodoData = async () => {
+    const todoData = await axios.get('https://waffle.gq/todo');
+    // eslint-disable-next-line no-console
+    console.log(todoData);
+  };
+  getTodoData();*/
+  const getTodoData = async () => {
+    try {
+      return await axios.get('https://waffle.gq/todo');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  };
+
+  const asdf = async () => {
+    const todo = await getTodoData();
+
+    if (todo) {
+      // eslint-disable-next-line no-console
+      console.log('asdf' + todo);
+    }
+  };
+
+  asdf();
+
+
   // input 값 받기
   const [content, setContent] = useState<string | null>(null);
   //store 데이터 받아오기

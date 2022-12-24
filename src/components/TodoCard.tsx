@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled, { css } from 'styled-components';
 import { ITodoType } from '../types/todo';
 import { todoStore } from '../store/todoStore';
+import axios from "axios";
 
 const TodoWrapper = styled.div`
   padding: 10px 10px;
@@ -51,7 +52,6 @@ const TodoButton = styled.button`
     margin-left: 10px;
   }
 `;
-
 const TodoCard: React.FC<ITodoType> = ({ id, content, isCompleted, date }) => {
   const { removeTodo, toggleCompletedTodo, updateTodo } = todoStore();
   return (
