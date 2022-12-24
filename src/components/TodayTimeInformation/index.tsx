@@ -17,7 +17,6 @@ const TodayTimeInformation = () => {
     return currentDate.toISOString().slice(0, 10);
   };
   getStringDate();*/
-  const [date, setDate] = useState(new Date());
 
   /*const currentDate = `${date.getFullYear()}-${
     date.getMonth() + 1
@@ -27,6 +26,7 @@ const TodayTimeInformation = () => {
   const [currentDate, setCurrentDate] = useState('');
 
   const getCurrentTime = () => {
+    const date = new Date();
     const hour = String(date.getHours()).padStart(2, '0');
     const minute = String(date.getMinutes()).padStart(2, '0');
     const second = String(date.getSeconds()).padStart(2, '0');
@@ -40,6 +40,37 @@ const TodayTimeInformation = () => {
   showCurrentTime();
 
   const getCurrentDate = () => {
+    const date = new Date();
+    let day: string;
+    switch (date.getDay()) {
+      case 1:
+        day = 'Mon';
+        break;
+      case 2:
+        day = 'Tue';
+        break;
+      case 3:
+        day = 'Tue';
+        break;
+      case 4:
+        day = 'Tue';
+        break;
+      case 5:
+        day = 'Tue';
+        break;
+      case 6:
+        day = 'Tue';
+        break;
+      default:
+        day = 'Tue';
+    }
+
+    setCurrentDate(
+      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${day}`,
+    );
+  };
+
+  /*const getCurrentDate = () => {
     let day: string;
     switch (date.getDay()) {
       case 1:
@@ -61,7 +92,7 @@ const TodayTimeInformation = () => {
     setCurrentDate(`${date.getFullYear()}-${
         date.getMonth() + 1
     }-${date.getDate()} ${date.getDay()}`)
-  };
+  };*/
 
   useEffect(() => {
     getCurrentTime();
