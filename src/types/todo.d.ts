@@ -27,11 +27,11 @@ export interface GetTodoListType {
 }
 export interface PostTodoType {
   title: string;
-  content?: string;
+  content: string;
 }
 export interface UpdateTodoType {
   title: string;
-  content?: string;
+  content: string;
   completed: boolean;
 }
 

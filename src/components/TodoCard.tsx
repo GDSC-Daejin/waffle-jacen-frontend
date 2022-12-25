@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import {ITodoType, ITodoType2} from '../types/todo';
+import { ITodoType, ITodoType2, UpdateTodoType } from '../types/todo';
 import { todoStore } from '../store/todoStore';
-import axios from "axios";
+import axios from 'axios';
 
 const TodoWrapper = styled.div`
   padding: 10px 10px;
@@ -27,7 +27,7 @@ const TodoContent = styled.div<{ isCompleted: boolean }>`
   color: ${({ theme }) => theme.colors.grey600};
   font-size: ${({ theme }) => theme.fontSize.textL};
   ${({ isCompleted }) =>
-    !isCompleted &&
+    isCompleted &&
     css`
       text-decoration: line-through;
       color: ${({ theme }) => theme.colors.grey600};
@@ -62,15 +62,40 @@ const TodoCard: React.FC<ITodoType2> = ({
   updatedDate,
   deletedDate,
 }) => {
-  const { removeTodo, toggleCompletedTodo, updateTodo } = todoStore();
+  const { removeTodo, updateTodo } = todoStore();
+  const [todo, setTodo] = useState<UpdateTodoType>({
+    title: title,
+    content: content,
+    completed: completed,
+  });
+
+  const removeTodoHandler = async (id: string) => {
+    await axios
+      .delete(`https://waffle.gq/todo/${id}`)
+      .then((res) => {
+        removeTodo(id);
+        // eslint-disable-next-line no-console
+        console.log('삭제되었습니다.');
+      })
+      .catch((err) => {
+        alert('삭제 실패했습니다.');
+      });
+  };
+  const toggleCompletedTodo = async (id: string) => {
+    updateTodo(todo, id);
+    setTodo(() => {
+      return { ...todo, completed: !todo.completed };
+    });
+  };
+
   return (
     <TodoWrapper onClick={() => toggleCompletedTodo(id)}>
-      <TodoContent isCompleted={completed}>{content}</TodoContent>
+      <TodoContent isCompleted={todo.completed}>{content}</TodoContent>
       <div>
-        <TodoButton onClick={() => updateTodo(id, content)}>
+        {/*<TodoButton onClick={() => updateTodo(id, content)}>
           수정하기
-        </TodoButton>
-        <TodoButton onClick={() => removeTodo(id)} className={'remove'}>
+        </TodoButton>*/}
+        <TodoButton onClick={() => removeTodoHandler(id)} className={'remove'}>
           삭제하기
         </TodoButton>
       </div>

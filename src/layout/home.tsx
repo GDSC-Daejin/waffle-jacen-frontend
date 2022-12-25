@@ -11,66 +11,31 @@ import { todoStore } from '../store/todoStore';
 import TodoCard from '../components/TodoCard';
 import { WrapperDesign } from '../components/TodoProgress/styled';
 import axios from 'axios';
-import {ITodoType2, PostTodoType, UpdateTodoType} from '../types/todo';
+import { ITodoType2, PostTodoType, UpdateTodoType } from '../types/todo';
+import {useNavigate} from "react-router-dom";
+import {getTodoList} from "../apis";
 
 const HomeLayout = () => {
-   /*const getTodoData = async () => {
-    const todoData = await axios.get('https://waffle.gq/todo');
-    // eslint-disable-next-line no-console
-    console.log(todoData);
-  };
-  getTodoData();*/
-  /*const getTodoData = async () => {
-    try {
-      return await axios.get('https://waffle.gq/todo');
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
-  };
+  const navigate = useNavigate();
 
-  const asdf = async () => {
-    const todos = await getTodoData();
-
-    if (todos) {
-      todos.data.todos.forEach((todo: any) => {
-        // eslint-disable-next-line no-console
-        console.log(todo.content);
-        addTodo(todo.content);
-      });
-    }
-  };*/
-
-
-  /*useEffect(() => {
-    fetch('https://waffle.gq/todo')
-      .then((res) => res.json())
-      .then((data) => {
-        // eslint-disable-next-line no-console
-        console.log(data);
-        data.data.todos.forEach((todo: any) => {
-          // eslint-disable-next-line no-console
-          console.log(todo.content);
-          addTodo(todo.content);
-        });
-      });
-  }, []);
-*/
   // input 값 받기
   const [content, setContent] = useState<string | null>(null);
   //store 데이터 받아오기
   const { todos, addTodo } = todoStore();
+  const [change, setChange] = useState(0);
 
-  const [todoList, setTodoList] = useState<ITodoType2>({
-    id: '',
-    title: '',
-    content: '',
-    completed: false,
-    deleted: false,
-    createdDate: '',
-    updatedDate: '',
-    deletedDate: '',
-  });
+  const [todoData, setTodoData] = useState<ITodoType2[]>([
+    {
+      id: '',
+      title: '',
+      content: '',
+      completed: false,
+      deleted: false,
+      createdDate: '',
+      updatedDate: '',
+      deletedDate: '',
+    },
+  ]);
 
   const [todo, setTodo] = useState<PostTodoType>({
     title: '',
@@ -82,7 +47,11 @@ const HomeLayout = () => {
       await axios
         .post('https://waffle.gq/todo', todo)
         .then((res) => {
-          alert('성공');
+          setTodo(() => {
+            return { ...todo, content: '' };
+          });
+          addTodo(todo);
+          setChange((change) => (change += 1));
         })
         .catch((err) => {
           alert('실패');
@@ -99,7 +68,6 @@ const HomeLayout = () => {
       addTodo(content);
       setContent('');
     } else {
-      //내용이 없으면 알림
       alert('내용을 입력해주세요.');
     }
   };
@@ -109,31 +77,40 @@ const HomeLayout = () => {
     }
   };
 
-  const getTodoList = async () => {
+/*  const getTodoList = async () => {
     const response = await axios.get('https://waffle.gq/todo');
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
-  };
+  };*/
   // eslint-disable-next-line no-console
-  const showTodoList = async () => {
-    const res = await getTodoList()
+  const setTodoList = async () => {
+    const res = await getTodoList();
 
-    if (res.success) {
-      for (let i=0; i<res.data.todos.length; i++) {
-        todos[i] = res.data.todos[i];
+    /*if (res.data.success) {
+      for (let i = 0; i < res.data.data.todos.length; i++) {
+        todos[i] = res.data.data.todos[i];
       }
-      res.data.todos.forEach((todo: ITodoType2) => {
-        console.log(todo.content);
-        setTodoList(todo);
+    }*/
+   /* if (res.data.success) {
+      res.data.data.todos.forEach((todo: ITodoType2) => {
+        setTodoData(todo);
       })
-    }
-    console.log('캬캬캬')
-  }
-  useEffect(() => {
-    showTodoList();
-  },[])
+    }*/
 
-  console.log(todos)
+    if (res.data.success) {
+      const tempTodoList: ITodoType2[] = [];
+      res.data.data.todos.forEach((todo: ITodoType2) => {
+        tempTodoList.push(todo);
+      });
+      setTodoData(tempTodoList);
+    }
+    console.log('캬캬캬');
+  };
+  useEffect(() => {
+    setTodoList();
+  }, []);
+
+  console.log(todoData);
 
   return (
     <WrapperDesign>
@@ -156,7 +133,7 @@ const HomeLayout = () => {
         </StackInputButtonWrapper>
         <TodoSection>
           {/*TODO 데이터 뿌리기*/}
-          {todos.map((todo) => (
+          {todoData.map((todo: ITodoType2) => (
             <TodoWrapper key={todo.id}>
               <TodoCard {...todo} />
             </TodoWrapper>
