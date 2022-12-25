@@ -11,7 +11,7 @@ import { todoStore } from '../store/todoStore';
 import TodoCard from '../components/TodoCard';
 import { WrapperDesign } from '../components/TodoProgress/styled';
 import axios from 'axios';
-import { ITodoType2 } from '../types/todo';
+import {ITodoType2, PostTodoType, UpdateTodoType} from '../types/todo';
 
 const HomeLayout = () => {
    /*const getTodoData = async () => {
@@ -72,6 +72,27 @@ const HomeLayout = () => {
     deletedDate: '',
   });
 
+  const [todo, setTodo] = useState<PostTodoType>({
+    title: '',
+    content: '',
+  });
+
+  const addTodoHandler2 = async () => {
+    if (todo.content != '') {
+      await axios
+        .post('https://waffle.gq/todo', todo)
+        .then((res) => {
+          alert('성공');
+        })
+        .catch((err) => {
+          alert('실패');
+          console.log(err);
+        });
+    } else {
+      alert('내용을 입력해주세요.');
+    }
+  }
+
   const addTodoHandler = () => {
     //내용이 입력되었으면 TODO 추가
     if (content) {
@@ -121,13 +142,17 @@ const HomeLayout = () => {
           {/*TODO값 입력하기*/}
           <StackInput
             placeholder={'할 일을 입력해요'}
-            value={content ?? ''} //content의 타입이 string과 null이므로 ?? ''로 값을 설정
+            value={todo.content ?? ''} //content의 타입이 string과 null이므로 ?? ''로 값을 설정
             type={'text'}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setTodo(() => {
+                return { ...todo, content: e.target.value };
+              });
+            }}
             onKeyPress={handleOnKeyPress} //엔터를 누르면 addTodoHandler를 실행
           />
           {/*TODO 추가하기 input 값이 없다면 추가 안됨*/}
-          <StackButton onClick={() => addTodoHandler()}>추가하기</StackButton>
+          <StackButton onClick={() => addTodoHandler2()}>추가하기</StackButton>
         </StackInputButtonWrapper>
         <TodoSection>
           {/*TODO 데이터 뿌리기*/}

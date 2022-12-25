@@ -29,6 +29,12 @@ export interface PostTodoType {
   title: string;
   content?: string;
 }
+export interface UpdateTodoType {
+  title: string;
+  content?: string;
+  completed: boolean;
+}
+
 export interface ITodoType2 {
   id: string;
   title: string;
