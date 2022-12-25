@@ -11,10 +11,10 @@ import { todoStore } from '../store/todoStore';
 import TodoCard from '../components/TodoCard';
 import { WrapperDesign } from '../components/TodoProgress/styled';
 import axios from 'axios';
-import {ITodoType2, PostTodoType, UpdateTodoType} from '../types/todo';
+import { ITodoType2, PostTodoType, UpdateTodoType } from '../types/todo';
 
 const HomeLayout = () => {
-   /*const getTodoData = async () => {
+  /*const getTodoData = async () => {
     const todoData = await axios.get('https://waffle.gq/todo');
     // eslint-disable-next-line no-console
     console.log(todoData);
