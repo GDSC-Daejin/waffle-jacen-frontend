@@ -1,5 +1,5 @@
 import create from 'zustand';
-import {ITodoStoreType, ITodoType2, PostTodoType, UpdateTodoType} from '../types/todo';
+import { PostTodoType, UpdateTodoType } from '../types/todo';
 import { devtools, persist } from 'zustand/middleware';
 import { addTodo, removeTodo, updateTodo } from '../apis';
 
@@ -19,14 +19,5 @@ export const todoStore = create(
         };
         await updateTodo(todo, id);
       }),
-    //Todo 완료 토글
-    /*toggleCompletedTodo: (id: string) =>
-      set((state) => {
-        return {
-          todos: state.todos.map((todo: ITodoType2) =>
-            todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-          ),
-        };
-      }),*/
   })),
 );

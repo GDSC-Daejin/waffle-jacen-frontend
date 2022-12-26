@@ -1,18 +1,12 @@
 // todo type입니다.
 
-export interface ITodoType {
-  content: string;
-  id: number;
-  date: number;
-  isCompleted: boolean;
-}
-
 export interface ITodoStoreType {
-  todos: ITodoType2[];
+  todos: ITodoType[];
   addTodo: (todo: PostTodoType) => void;
   removeTodo: (id: string) => void;
   updateTodo: (todo: UpdateTodoType, id: string) => void;
 }
+
 export interface GetTodoListType {
   success: boolean;
   data: {
@@ -34,7 +28,7 @@ export interface UpdateTodoType {
   completed: boolean;
 }
 
-export interface ITodoType2 {
+export interface ITodoType {
   id: string;
   title: string;
   content: string;

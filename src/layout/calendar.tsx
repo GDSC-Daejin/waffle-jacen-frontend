@@ -50,7 +50,6 @@ const CalendarLayout: React.FC = () => {
   const selectDate = (date: Date) => {
     // 날짜를 선택한다.
     setSelectedDate(date);
-    console.log(date);
   };
 
   const pad = () =>
@@ -63,7 +62,6 @@ const CalendarLayout: React.FC = () => {
       // 1일 부터 마지막 날까지 날짜 표기
       const thisDay = new Date(year, month, d + 1);
       const today = new Date();
-      console.log(`asdf ${thisDay}`);
       return (
         <TableData key={d} onClick={() => selectDate(thisDay)}>
           <DisplayDate

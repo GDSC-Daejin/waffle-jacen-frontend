@@ -26,6 +26,7 @@ const TodayTimeInformation = () => {
 
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [currentDate, setCurrentDate] = useState('');
+  const dayList = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const getCurrentTime = () => {
     const date = new Date();
@@ -36,32 +37,12 @@ const TodayTimeInformation = () => {
   };
   const getCurrentDate = () => {
     const date = new Date();
-    let day: string;
-    switch (date.getDay()) {
-      case 1:
-        day = 'Mon';
-        break;
-      case 2:
-        day = 'Tue';
-        break;
-      case 3:
-        day = 'Tue';
-        break;
-      case 4:
-        day = 'Tue';
-        break;
-      case 5:
-        day = 'Tue';
-        break;
-      case 6:
-        day = 'Tue';
-        break;
-      default:
-        day = 'Tue';
-    }
-    const tempDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${day}`
+    const day = dayList[date.getDay() - 1];
+    const tempDate = `${date.getFullYear()}-${
+      date.getMonth() + 1
+    }-${date.getDate()} ${day}`;
     setCurrentDate(tempDate);
-    localStorage.setItem('currentDate', tempDate)
+    localStorage.setItem('currentDate', tempDate);
   };
   const showCurrentTime = () => {
     setInterval(getCurrentTime, 1000);
@@ -73,60 +54,31 @@ const TodayTimeInformation = () => {
   showCurrentTime();
   showCurrentDate();
 
-  /*const getCurrentDate = () => {
-    let day: string;
-    switch (date.getDay()) {
-      case 1:
-        day = 'Mon';
-      case 2:
-        day = 'Tue';
-      case 3:
-        return 'Wed';
-      case 4:
-        return 'Thu';
-      case 5:
-        return 'Fri';
-      case 6:
-        return 'Sat';
-      default:
-        return 'Sun';
-    }
-
-    setCurrentDate(`${date.getFullYear()}-${
-        date.getMonth() + 1
-    }-${date.getDate()} ${date.getDay()}`)
-  };*/
-
   useEffect(() => {
     getCurrentTime();
     getCurrentDate();
   }, []);
 
   return (
-    <>
-      {/*<Modal isOpen={false}>
-        <ModalContent date={currentDate} />
-      </Modal>*/}
-      <WrapperDesign>
-        <Title>현재 시간</Title>
-        <TodayInformation>
-          <TimeWrapper>
-            <SubTitle>시간</SubTitle>
-            <ClockTimeWrapper>
-              <Clock />
-              <Time>{currentTime}</Time>
-            </ClockTimeWrapper>
-          </TimeWrapper>
-          <TimeWrapper>
-            <SubTitle>날짜</SubTitle>
-            <ClockTimeWrapper>
-              <CalenderIcon />
-              <Time>{currentDate}</Time>
-            </ClockTimeWrapper>
-          </TimeWrapper>
-        </TodayInformation>
-      </WrapperDesign>
-    </>
+    <WrapperDesign>
+      <Title>현재 시간</Title>
+      <TodayInformation>
+        <TimeWrapper>
+          <SubTitle>시간</SubTitle>
+          <ClockTimeWrapper>
+            <Clock />
+            <Time>{currentTime}</Time>
+          </ClockTimeWrapper>
+        </TimeWrapper>
+        <TimeWrapper>
+          <SubTitle>날짜</SubTitle>
+          <ClockTimeWrapper>
+            <CalenderIcon />
+            <Time>{currentDate}</Time>
+          </ClockTimeWrapper>
+        </TimeWrapper>
+      </TodayInformation>
+    </WrapperDesign>
   );
 };
 

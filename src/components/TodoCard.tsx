@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { ITodoType, ITodoType2, UpdateTodoType } from '../types/todo';
+import { UpdateTodoType } from '../types/todo';
 import { todoStore } from '../store/todoStore';
-import axios from 'axios';
-import { Checkbox } from './common/Checkbox';
 
 const TodoWrapper = styled.div`
   padding: 10px 10px;
@@ -92,7 +90,7 @@ const TodoCard: React.FC<Iprops> = ({
   setTodoList,
   isTrash,
 }) => {
-  const { removeTodo, updateTodo, increaseRender } = todoStore();
+  const { removeTodo, updateTodo } = todoStore();
   const [todo, setTodo] = useState<UpdateTodoType>({
     title: title,
     content: content,

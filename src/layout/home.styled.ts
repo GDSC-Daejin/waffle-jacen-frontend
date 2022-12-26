@@ -1,13 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-//빙글빙글 돌아가는 모션
-const LogoSpin = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
 
 export const StackWrapper = styled.div`
   display: flex;
@@ -18,14 +9,7 @@ export const StackWrapper = styled.div`
   row-gap: 30px;
   width: 100%;
 `;
-/*export const StackTitle = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.h3};
-  color: ${({ theme }) => theme.colors.grey50};
-`;
-export const StackSubtitle = styled.span`
-  font-size: ${({ theme }) => theme.fontSize.h4};
-  color: ${({ theme }) => theme.colors.grey50};
-`;*/
+
 export const StackButton = styled.button`
   padding: 10px 20px;
   border: 1px solid ${({ theme }) => theme.colors.grey600};
@@ -72,21 +56,6 @@ export const TodoSection = styled.section`
 export const TodoWrapper = styled.div`
   width: 100%;
 `;
-
-/*export const StackImage = styled.img`
-  height: 200px;
-  padding: 50px;
-  will-change: filter;
-  &:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  &.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
-  }
-  &.react {
-    animation: ${LogoSpin} infinite 20s linear;
-  }
-`;*/
 
 export const HomeDesign = styled.div`
   display: flex;

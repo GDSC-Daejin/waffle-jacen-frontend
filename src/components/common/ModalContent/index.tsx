@@ -1,6 +1,4 @@
-import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
-import Modal from '../Modal';
+import React, { useState } from 'react';
 import { PostTodoType } from '../../../types/todo';
 import { todoStore } from '../../../store/todoStore';
 import { Card, Container, Date, InputTodo, SubmitButton } from './styled';

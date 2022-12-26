@@ -1,5 +1,5 @@
 import axios from "axios";
-import {PostTodoType, UpdateTodoType} from "../types/todo";
+import { PostTodoType, UpdateTodoType } from '../types/todo';
 
 export const getTodoList = async () => {
   return await axios.get(`https://waffle.gq/todo?size=100`);

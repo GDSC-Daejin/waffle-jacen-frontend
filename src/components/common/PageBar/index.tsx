@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './styled.css';
 // @ts-ignore
 import Pagination from 'react-js-pagination';
