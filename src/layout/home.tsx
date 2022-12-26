@@ -14,6 +14,9 @@ import axios from 'axios';
 import { ITodoType2, PostTodoType, UpdateTodoType } from '../types/todo';
 import { useNavigate } from 'react-router-dom';
 import { getTodoList } from '../apis';
+import styled from 'styled-components';
+import Modal from "../components/common/Modal";
+import ModalContent from "../components/common/ModalContent";
 
 const HomeLayout = () => {
   const navigate = useNavigate();
@@ -21,7 +24,7 @@ const HomeLayout = () => {
   // input 값 받기
   const [content, setContent] = useState<string | null>(null);
   //store 데이터 받아오기
-  const { todos, addTodo } = todoStore();
+  const { todos, addTodo, setTodos, increaseRender, render } = todoStore();
   const [change, setChange] = useState(0);
 
   const [todoData, setTodoData] = useState<ITodoType2[]>([
@@ -42,7 +45,7 @@ const HomeLayout = () => {
     content: '',
   });
 
-  const addTodoHandler2 = async () => {
+  const addTodoHandler = async () => {
     if (todo.content != '') {
       setTodo(() => {
         return { ...todo, content: '' };
@@ -51,21 +54,6 @@ const HomeLayout = () => {
       setTodoList();
     } else {
       alert('내용을 입력해주세요.');
-    }
-  };
-
-  const addTodoHandler = () => {
-    //내용이 입력되었으면 TODO 추가
-    if (content) {
-      setContent('');
-      addTodo(content);
-    } else {
-      alert('내용을 입력해주세요.');
-    }
-  };
-  const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      addTodoHandler2();
     }
   };
 
@@ -78,45 +66,91 @@ const HomeLayout = () => {
         tempTodoList.push(todo);
       });
       setTodoData(tempTodoList);
+      //setTodos(tempTodoList);
     }
     // eslint-disable-next-line no-console
     console.log('캬캬캬');
   };
-  useEffect(() => {
-    setTodoList();
-  }, []);
 
   // eslint-disable-next-line no-console
   console.log(todoData);
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    setTodoList();
+  }, [isModalOpen]);
+
+  const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  `;
+
+  const Button = styled.button`
+    width: 280px;
+    height: 60px;
+    border-radius: 12px;
+    color: #fff;
+    background-color: #3d6afe;
+    margin: 0;
+    border: none;
+    font-size: 24px;
+    &:active {
+      opacity: 0.8;
+    }
+  `;
+
+  const ModalBody = styled.div`
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
+    max-height: calc(100vh - 16px);
+    overflow: hidden auto;
+    position: relative;
+    padding-block: 12px;
+    padding-inline: 24px;
+  `;
+
   return (
-    <WrapperDesign>
-      <StackWrapper>
-        <StackInputButtonWrapper>
-          <StackInput
-            placeholder={'할 일을 입력해요'}
-            value={todo.content ?? ''}
-            type={'text'}
-            onChange={(e) => {
-              setTodo(() => {
-                return { ...todo, content: e.target.value };
-              });
-            }}
-            onKeyPress={handleOnKeyPress} //엔터를 누르면 addTodoHandler를 실행
-          />
-          {/*TODO 추가하기 input 값이 없다면 추가 안됨*/}
-          <StackButton onClick={() => addTodoHandler2()}>추가하기</StackButton>
-        </StackInputButtonWrapper>
-        <TodoSection>
-          {/*TODO 데이터 뿌리기*/}
-          {todoData.map((todo: ITodoType2) => (
-            <TodoWrapper key={todo.id}>
-              <TodoCard {...todo} setTodoList={setTodoList} isTrash={false} />
-            </TodoWrapper>
-          ))}
-        </TodoSection>
-      </StackWrapper>
-    </WrapperDesign>
+    <>
+      <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+        <ModalContent onClose={handleModalClose} />
+      </Modal>
+      <WrapperDesign>
+        <StackWrapper>
+          <StackInputButtonWrapper>
+            {/*TODO값 입력하기*/}
+            <StackInput
+              placeholder={'할 일을 입력해요'}
+              value={todo.content ?? ''}
+              type={'text'}
+              onChange={(e) => {
+                setTodo(() => {
+                  return { ...todo, content: e.target.value };
+                });
+              }}
+            />
+            <StackButton onClick={() => setIsModalOpen(true)}>
+              추가하기
+            </StackButton>
+          </StackInputButtonWrapper>
+          <TodoSection>
+            {/*TODO 데이터 뿌리기*/}
+            {todoData.map((todo: ITodoType2) => (
+              <TodoWrapper key={todo.id}>
+                <TodoCard {...todo} setTodoList={setTodoList} isTrash={false} />
+              </TodoWrapper>
+            ))}
+          </TodoSection>
+        </StackWrapper>
+      </WrapperDesign>
+    </>
   );
 };
 
