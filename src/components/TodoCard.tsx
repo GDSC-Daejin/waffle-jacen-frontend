@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { ITodoType, ITodoType2, UpdateTodoType } from '../types/todo';
 import { todoStore } from '../store/todoStore';
 import axios from 'axios';
+import { Checkbox } from './common/Checkbox';
 
 const TodoWrapper = styled.div`
   padding: 10px 10px;
@@ -42,6 +43,7 @@ const TodoButton = styled.button`
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  z-index: 999;
   &:hover {
     border-color: ${({ theme }) => theme.colors.googleGreen};
   }
@@ -52,7 +54,33 @@ const TodoButton = styled.button`
     margin-left: 10px;
   }
 `;
-const TodoCard: React.FC<ITodoType2> = ({
+const CheckboxWrapper = styled.div`
+  width: 50px;
+  height: 50px;
+`;
+const CheckInputBox = styled.input<{ isTrash: boolean }>`
+  display: flex;
+  ${({ isTrash }) =>
+    isTrash &&
+    css`
+      display: none;
+    `}
+`;
+
+interface Iprops {
+  id: string;
+  title: string;
+  content: string;
+  completed: boolean;
+  deleted: boolean;
+  createdDate: string;
+  updatedDate: string;
+  deletedDate: string;
+  setTodoList?: () => void;
+  isTrash: boolean;
+}
+
+const TodoCard: React.FC<Iprops> = ({
   id,
   title,
   content,
@@ -61,8 +89,10 @@ const TodoCard: React.FC<ITodoType2> = ({
   createdDate,
   updatedDate,
   deletedDate,
+  setTodoList,
+  isTrash,
 }) => {
-  const { removeTodo, updateTodo } = todoStore();
+  const { removeTodo, updateTodo, increaseRender } = todoStore();
   const [todo, setTodo] = useState<UpdateTodoType>({
     title: title,
     content: content,
@@ -70,26 +100,38 @@ const TodoCard: React.FC<ITodoType2> = ({
   });
 
   const removeTodoHandler = async (id: string) => {
-    await axios
-      .delete(`https://waffle.gq/todo/${id}`)
-      .then((res) => {
-        removeTodo(id);
-        // eslint-disable-next-line no-console
-        console.log('삭제되었습니다.');
-      })
-      .catch((err) => {
-        alert('삭제 실패했습니다.');
-      });
+    const confirmMessage: string = isTrash
+      ? '해당 항목을 영구적으로 지우시겠습니까?'
+      : '휴지통으로 이동시키겠습니까?';
+    const alertMessage: string = isTrash
+      ? '영구적으로 삭제되었습니다.'
+      : '휴지통으로 이동되었습니다.';
+    if (window.confirm(confirmMessage)) {
+      await removeTodo(id);
+      alert(alertMessage);
+      setTodoList && setTodoList();
+    } else return;
   };
+
   const toggleCompletedTodo = async (id: string) => {
-    updateTodo(todo, id);
+    await updateTodo(todo, id);
     setTodo(() => {
       return { ...todo, completed: !todo.completed };
     });
   };
 
   return (
-    <TodoWrapper onClick={() => toggleCompletedTodo(id)}>
+    <TodoWrapper>
+      {/*<CheckboxWrapper>
+        <Checkbox />
+      </CheckboxWrapper>*/}
+      <CheckInputBox
+        type={'checkbox'}
+        checked={todo.completed}
+        onChange={(e) => e.target.checked}
+        onClick={() => toggleCompletedTodo(id)}
+        isTrash={isTrash}
+      />
       <TodoContent isCompleted={todo.completed}>{content}</TodoContent>
       <div>
         {/*<TodoButton onClick={() => updateTodo(id, content)}>

@@ -1,16 +1,16 @@
 import create from 'zustand';
 import {ITodoStoreType, ITodoType2, PostTodoType, UpdateTodoType} from '../types/todo';
-import {devtools, persist} from "zustand/middleware";
-import {addTodo, removeTodo, updateTodo} from "../apis";
+import { devtools, persist } from 'zustand/middleware';
+import { addTodo, removeTodo, updateTodo } from '../apis';
 
-const date = new Date();
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
 export const todoStore = create(
   devtools((set) => ({
+    render: 0,
     //Todo 기본 데이터
-    //todos: [],
+    todos: [],
+    setTodos: (todo: ITodoType2[]) => {
+      set((state) => ({ ...state, todos: todo }));
+    },
     //Todo 추가
     /*addTodo: (content: string) =>
       set((state) => ({
@@ -30,10 +30,7 @@ export const todoStore = create(
       set((state) => ({
         todos: state.todos.filter((todo) => todo.id !== id),
       })),*/
-    removeTodo: (id: string) =>
-      set(async (state) => {
-        await removeTodo(id);
-      }),
+    removeTodo: (id: string) => set(async (state) => await removeTodo(id)),
     //Todo 업데이트
     /*updateTodo: (id: string, content: string) =>
       set((state) => {
@@ -62,5 +59,6 @@ export const todoStore = create(
           ),
         };
       }),*/
+    increaseRender: () => set((state) => ({ render: state.render + 1 })),
   })),
 );

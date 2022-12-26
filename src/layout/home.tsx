@@ -12,8 +12,8 @@ import TodoCard from '../components/TodoCard';
 import { WrapperDesign } from '../components/TodoProgress/styled';
 import axios from 'axios';
 import { ITodoType2, PostTodoType, UpdateTodoType } from '../types/todo';
-import {useNavigate} from "react-router-dom";
-import {getTodoList} from "../apis";
+import { useNavigate } from 'react-router-dom';
+import { getTodoList } from '../apis';
 
 const HomeLayout = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const HomeLayout = () => {
   // input 값 받기
   const [content, setContent] = useState<string | null>(null);
   //store 데이터 받아오기
-  const { todos, addTodo } = todoStore();
+  const { todos, addTodo, setTodos, increaseRender, render } = todoStore();
   const [change, setChange] = useState(0);
 
   const [todoData, setTodoData] = useState<ITodoType2[]>([
@@ -44,40 +44,32 @@ const HomeLayout = () => {
 
   const addTodoHandler2 = async () => {
     if (todo.content != '') {
-      await axios
-        .post('https://waffle.gq/todo', todo)
-        .then((res) => {
-          setTodo(() => {
-            return { ...todo, content: '' };
-          });
-          addTodo(todo);
-          setChange((change) => (change += 1));
-        })
-        .catch((err) => {
-          alert('실패');
-          console.log(err);
-        });
+      setTodo(() => {
+        return { ...todo, content: '' };
+      });
+      await addTodo(todo);
+      setTodoList();
     } else {
       alert('내용을 입력해주세요.');
     }
-  }
+  };
 
   const addTodoHandler = () => {
     //내용이 입력되었으면 TODO 추가
     if (content) {
-      addTodo(content);
       setContent('');
+      addTodo(content);
     } else {
       alert('내용을 입력해주세요.');
     }
   };
   const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      addTodoHandler();
+      addTodoHandler2();
     }
   };
 
-/*  const getTodoList = async () => {
+  /*  const getTodoList = async () => {
     const response = await axios.get('https://waffle.gq/todo');
     console.log(response.data);
     return response.data;
@@ -91,7 +83,7 @@ const HomeLayout = () => {
         todos[i] = res.data.data.todos[i];
       }
     }*/
-   /* if (res.data.success) {
+    /* if (res.data.success) {
       res.data.data.todos.forEach((todo: ITodoType2) => {
         setTodoData(todo);
       })
@@ -103,6 +95,7 @@ const HomeLayout = () => {
         tempTodoList.push(todo);
       });
       setTodoData(tempTodoList);
+      //setTodos(tempTodoList);
     }
     console.log('캬캬캬');
   };
@@ -135,7 +128,7 @@ const HomeLayout = () => {
           {/*TODO 데이터 뿌리기*/}
           {todoData.map((todo: ITodoType2) => (
             <TodoWrapper key={todo.id}>
-              <TodoCard {...todo} />
+              <TodoCard {...todo} setTodoList={setTodoList} isTrash={false}/>
             </TodoWrapper>
           ))}
         </TodoSection>
