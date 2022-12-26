@@ -9,10 +9,9 @@ export interface ITodoType {
 
 export interface ITodoStoreType {
   todos: ITodoType2[];
-  addTodo: (content: string) => void;
+  addTodo: (todo: PostTodoType) => void;
   removeTodo: (id: string) => void;
-  updateTodo: (id: string, content: string) => void;
-  toggleCompletedTodo: (id: string) => void;
+  updateTodo: (todo: UpdateTodoType, id: string) => void;
 }
 export interface GetTodoListType {
   success: boolean;
@@ -27,11 +26,11 @@ export interface GetTodoListType {
 }
 export interface PostTodoType {
   title: string;
-  content?: string;
+  content: string;
 }
 export interface UpdateTodoType {
   title: string;
-  content?: string;
+  content: string;
   completed: boolean;
 }
 
