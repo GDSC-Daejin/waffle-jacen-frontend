@@ -8,6 +8,8 @@ import {
 } from './styled';
 import Clock from '../../assets/Clock';
 import CalenderIcon from '../../assets/CalenderIcon';
+import Modal from "../common/Modal";
+import ModalContent from "../common/ModalContent";
 
 const TodayTimeInformation = () => {
   /*const [currentDate, setCurrnetDate] = useState('')
@@ -32,13 +34,6 @@ const TodayTimeInformation = () => {
     const second = String(date.getSeconds()).padStart(2, '0');
     setCurrentTime(`${hour}:${minute}:${second}`);
   };
-
-  const showCurrentTime = () => {
-    setInterval(getCurrentTime, 1000);
-  };
-
-  showCurrentTime();
-
   const getCurrentDate = () => {
     const date = new Date();
     let day: string;
@@ -64,11 +59,19 @@ const TodayTimeInformation = () => {
       default:
         day = 'Tue';
     }
-
-    setCurrentDate(
-      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${day}`,
-    );
+    const tempDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${day}`
+    setCurrentDate(tempDate);
+    localStorage.setItem('currentDate', tempDate)
   };
+  const showCurrentTime = () => {
+    setInterval(getCurrentTime, 1000);
+  };
+  const showCurrentDate = () => {
+    setInterval(getCurrentDate, 60000);
+  };
+
+  showCurrentTime();
+  showCurrentDate();
 
   /*const getCurrentDate = () => {
     let day: string;
@@ -100,25 +103,30 @@ const TodayTimeInformation = () => {
   }, []);
 
   return (
-    <WrapperDesign>
-      <Title>현재 시간</Title>
-      <TodayInformation>
-        <TimeWrapper>
-          <SubTitle>시간</SubTitle>
-          <ClockTimeWrapper>
-            <Clock />
-            <Time>{currentTime}</Time>
-          </ClockTimeWrapper>
-        </TimeWrapper>
-        <TimeWrapper>
-          <SubTitle>날짜</SubTitle>
-          <ClockTimeWrapper>
-            <CalenderIcon />
-            <Time>{currentDate}</Time>
-          </ClockTimeWrapper>
-        </TimeWrapper>
-      </TodayInformation>
-    </WrapperDesign>
+    <>
+      {/*<Modal isOpen={false}>
+        <ModalContent date={currentDate} />
+      </Modal>*/}
+      <WrapperDesign>
+        <Title>현재 시간</Title>
+        <TodayInformation>
+          <TimeWrapper>
+            <SubTitle>시간</SubTitle>
+            <ClockTimeWrapper>
+              <Clock />
+              <Time>{currentTime}</Time>
+            </ClockTimeWrapper>
+          </TimeWrapper>
+          <TimeWrapper>
+            <SubTitle>날짜</SubTitle>
+            <ClockTimeWrapper>
+              <CalenderIcon />
+              <Time>{currentDate}</Time>
+            </ClockTimeWrapper>
+          </TimeWrapper>
+        </TodayInformation>
+      </WrapperDesign>
+    </>
   );
 };
 
