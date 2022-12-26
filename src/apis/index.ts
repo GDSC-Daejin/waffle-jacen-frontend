@@ -6,8 +6,12 @@ export const getTodoList = async () => {
 };
 
 export const getTrashTodoList = async () => {
-  return await axios.get(`https://waffle.gq/todo/trash`);
+  return await axios.get(`https://waffle.gq/todo/trash?size=100`);
 };
+
+export const getTrashTodoListByPage = async (page: number) => {
+  return await axios.get(`https://waffle.gq/todo/trash?page=${page}`);
+}
 
 export const addTodo = async (todo: PostTodoType) => {
   return await axios.post(`https://waffle.gq/todo`, todo);
