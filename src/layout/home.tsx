@@ -21,7 +21,7 @@ const HomeLayout = () => {
   // input 값 받기
   const [content, setContent] = useState<string | null>(null);
   //store 데이터 받아오기
-  const { todos, addTodo, setTodos, increaseRender, render } = todoStore();
+  const { todos, addTodo } = todoStore();
   const [change, setChange] = useState(0);
 
   const [todoData, setTodoData] = useState<ITodoType2[]>([
@@ -69,25 +69,8 @@ const HomeLayout = () => {
     }
   };
 
-  /*  const getTodoList = async () => {
-    const response = await axios.get('https://waffle.gq/todo');
-    console.log(response.data);
-    return response.data;
-  };*/
-  // eslint-disable-next-line no-console
   const setTodoList = async () => {
     const res = await getTodoList();
-
-    /*if (res.data.success) {
-      for (let i = 0; i < res.data.data.todos.length; i++) {
-        todos[i] = res.data.data.todos[i];
-      }
-    }*/
-    /* if (res.data.success) {
-      res.data.data.todos.forEach((todo: ITodoType2) => {
-        setTodoData(todo);
-      })
-    }*/
 
     if (res.data.success) {
       const tempTodoList: ITodoType2[] = [];
@@ -95,7 +78,6 @@ const HomeLayout = () => {
         tempTodoList.push(todo);
       });
       setTodoData(tempTodoList);
-      //setTodos(tempTodoList);
     }
     // eslint-disable-next-line no-console
     console.log('캬캬캬');
@@ -111,10 +93,9 @@ const HomeLayout = () => {
     <WrapperDesign>
       <StackWrapper>
         <StackInputButtonWrapper>
-          {/*TODO값 입력하기*/}
           <StackInput
             placeholder={'할 일을 입력해요'}
-            value={todo.content ?? ''} //content의 타입이 string과 null이므로 ?? ''로 값을 설정
+            value={todo.content ?? ''}
             type={'text'}
             onChange={(e) => {
               setTodo(() => {

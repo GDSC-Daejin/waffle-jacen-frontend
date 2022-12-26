@@ -3,8 +3,8 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { isSameDay } from '../utils/date';
 import {
   ArrowButton,
-  Base,
   ButtonContainer,
+  Calendar,
   DisplayDate,
   Header,
   Table,
@@ -77,7 +77,7 @@ const CalendarLayout: React.FC = () => {
     });
 
   const render = () => {
-    // table data 를 일주일 단위로 줄바꿈한다.
+    // table data 를 일주일 단위로 줄바꿈
     const items = [...pad(), ...range()];
 
     const weeks = Math.ceil(items.length / 7);
@@ -88,7 +88,7 @@ const CalendarLayout: React.FC = () => {
   };
 
   return (
-    <Base>
+    <Calendar>
       <Header>
         <ButtonContainer>
           <ArrowButton
@@ -126,7 +126,7 @@ const CalendarLayout: React.FC = () => {
         </TableHeader>
         <TableBody>{render()}</TableBody>
       </Table>
-    </Base>
+    </Calendar>
   );
 };
 

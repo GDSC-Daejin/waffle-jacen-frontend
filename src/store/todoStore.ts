@@ -5,42 +5,11 @@ import { addTodo, removeTodo, updateTodo } from '../apis';
 
 export const todoStore = create(
   devtools((set) => ({
-    render: 0,
-    //Todo 기본 데이터
     todos: [],
-    setTodos: (todo: ITodoType2[]) => {
-      set((state) => ({ ...state, todos: todo }));
-    },
-    //Todo 추가
-    /*addTodo: (content: string) =>
-      set((state) => ({
-        todos: [
-          {
-            id: Math.random() * 100,
-            content: content,
-            createdDate: date.getUTCDate(),
-            completed: false,
-          },
-          ...state.todos,
-        ],
-      })),*/
     addTodo: (todo: PostTodoType) => set(async (state) => await addTodo(todo)),
-    //Todo 삭제
-    /*removeTodo: (id: string) =>
-      set((state) => ({
-        todos: state.todos.filter((todo) => todo.id !== id),
-      })),*/
+
     removeTodo: (id: string) => set(async (state) => await removeTodo(id)),
-    //Todo 업데이트
-    /*updateTodo: (id: string, content: string) =>
-      set((state) => {
-        // const foundTodo = state.todos.find((todo) => todo.id === id);
-        return {
-          todos: state.todos.map((todo) =>
-            todo.id === id ? { ...todo, content: content } : todo,
-          ),
-        };
-      }),*/
+
     updateTodo: (data: UpdateTodoType, id: string) =>
       set(async (state) => {
         const todo: UpdateTodoType = {
@@ -59,6 +28,5 @@ export const todoStore = create(
           ),
         };
       }),*/
-    increaseRender: () => set((state) => ({ render: state.render + 1 })),
   })),
 );

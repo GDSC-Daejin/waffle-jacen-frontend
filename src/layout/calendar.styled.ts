@@ -82,7 +82,7 @@ export const DisplayDate = styled.div<{
   font-size: ${({ theme }) => theme.fontSize.textS};
 `;
 
-export const Base = styled.div`
+export const Calendar = styled.div`
   width: 100%;
   height: 600px;
   display: flex;
