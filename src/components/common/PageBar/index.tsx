@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './styled.css'
+import './styled.css';
 // @ts-ignore
 import Pagination from 'react-js-pagination';
 
@@ -10,11 +10,13 @@ interface IPaginationProps {
 }
 
 const PageBar: React.FC<IPaginationProps> = ({ page, count, setPage }) => {
-  console.log(page + " asdf " + count);
-  const handle = (page) => {
-    console.log(page)
-    setPage(page)
-  }
+  // eslint-disable-next-line no-console
+  console.log(page + ' asdf ' + count);
+  const handle = (page: number) => {
+    // eslint-disable-next-line no-console
+    console.log(page);
+    setPage(page);
+  };
   return (
     <Pagination
       activePage={page}

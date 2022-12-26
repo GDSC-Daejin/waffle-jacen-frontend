@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { StackWrapper, TodoSection, TodoWrapper } from './home.styled';
-import {ITodoType2} from "../types/todo";
-import TodoCard from "../components/TodoCard";
-import {WrapperDesign} from "../components/TodoProgress/styled";
-import {getTodoList, getTrashTodoList, getTrashTodoListByPage} from "../apis";
-import PageBar from "../components/common/PageBar";
+import { ITodoType2 } from '../types/todo';
+import TodoCard from '../components/TodoCard';
+import { WrapperDesign } from '../components/TodoProgress/styled';
+import { getTrashTodoList, getTrashTodoListByPage } from '../apis';
+// @ts-ignore
 import Pagination from 'react-js-pagination';
 import '../components/common/PageBar/styled.css';
 
@@ -24,13 +24,14 @@ const TrashLayout = () => {
 
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
-  const handlePageChange = (page) => {
-    setPage(page)
-  }
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
 
   const getTodoListCount = async () => {
     const res = await getTrashTodoList();
-    console.log(res)
+    // eslint-disable-next-line no-console
+    console.log(res);
     /*if (res.data.success) {
       for (let i = 0; i < res.data.data.todos.length; i++) {
         todos[i] = res.data.data.todos[i];
@@ -50,23 +51,26 @@ const TrashLayout = () => {
       });
       setTodoData(tempTodoList);*/
       setCount(res.data.data.todos.length);
-      console.log(count)
+      // eslint-disable-next-line no-console
+      console.log(count);
       //setTodos(tempTodoList);
     }
+    // eslint-disable-next-line no-console
     console.log('캬캬캬');
   };
 
   const setTodoList = async () => {
-    console.log(page)
+    // eslint-disable-next-line no-console
+    console.log(page);
     const res = await getTrashTodoListByPage(page - 1);
-    if (res.data.success){
+    if (res.data.success) {
       const tempTodoList: ITodoType2[] = [];
       res.data.data.todos.forEach((todo: ITodoType2) => {
         tempTodoList.push(todo);
       });
       setTodoData(tempTodoList);
     }
-  }
+  };
   useEffect(() => {
     getTodoListCount();
     setTodoList();

@@ -97,12 +97,14 @@ const HomeLayout = () => {
       setTodoData(tempTodoList);
       //setTodos(tempTodoList);
     }
+    // eslint-disable-next-line no-console
     console.log('캬캬캬');
   };
   useEffect(() => {
     setTodoList();
   }, []);
 
+  // eslint-disable-next-line no-console
   console.log(todoData);
 
   return (
@@ -128,7 +130,7 @@ const HomeLayout = () => {
           {/*TODO 데이터 뿌리기*/}
           {todoData.map((todo: ITodoType2) => (
             <TodoWrapper key={todo.id}>
-              <TodoCard {...todo} setTodoList={setTodoList} isTrash={false}/>
+              <TodoCard {...todo} setTodoList={setTodoList} isTrash={false} />
             </TodoWrapper>
           ))}
         </TodoSection>
