@@ -55,7 +55,7 @@ const Modal: React.FC<IModalProps> = ({
         </Overlay>
       </Portal>
     </CSSTransition>
-  )
-}
+  );
+};
 
 export default Modal;
