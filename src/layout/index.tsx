@@ -4,7 +4,7 @@ import Home from '../pages/Home';
 import MyPage from '../pages/MyPage';
 import Calendar from '../pages/Calendar';
 import Trash from '../pages/Trash';
-import TodoDetail from '../pages/TodoDetail';
+
 import {
   ContainerInner,
   LayoutContainer,
@@ -21,7 +21,6 @@ const Layout = () => {
           <Route path={'/:user_name/*'} element={<MyPage />} />
           <Route path={'/calendar'} element={<Calendar />} />
           <Route path={'/trash'} element={<Trash />} />
-          <Route path={'/todo/:id'} element={<TodoDetail />} />
         </Routes>
       </ContainerInner>
     </LayoutContainer>
