@@ -90,11 +90,13 @@ const TodoCard: React.FC<Iprops> = ({
   setTodoList,
   isTrash,
 }) => {
-  const { removeTodo, updateTodo } = todoStore();
+  // @ts-ignore
+  const { removeTodo, updateTodo, recoverTodo } = todoStore();
   const [todo, setTodo] = useState<UpdateTodoType>({
     title: title,
     content: content,
     completed: completed,
+    deleted: deleted,
   });
 
   const removeTodoHandler = async (id: string) => {
@@ -118,6 +120,14 @@ const TodoCard: React.FC<Iprops> = ({
     });
   };
 
+  const recoverTodoHandler = async (id: string) => {
+    if (window.confirm('복원')) {
+      await recoverTodo(todo, id);
+      alert('복원됨');
+      setTodoList && setTodoList();
+    } else return;
+  };
+
   return (
     <TodoWrapper>
       {/*<CheckboxWrapper>
@@ -132,12 +142,32 @@ const TodoCard: React.FC<Iprops> = ({
       />
       <TodoContent isCompleted={todo.completed}>{content}</TodoContent>
       <div>
+        {isTrash ? (
+          <>
+            <TodoButton
+              onClick={() => recoverTodoHandler(id)}
+              className={'remove'}
+            >
+              복원하기
+            </TodoButton>
+            <TodoButton
+              onClick={() => removeTodoHandler(id)}
+              className={'remove'}
+            >
+              삭제하기
+            </TodoButton>
+          </>
+        ) : (
+          <TodoButton
+            onClick={() => removeTodoHandler(id)}
+            className={'remove'}
+          >
+            삭제하기
+          </TodoButton>
+        )}
         {/*<TodoButton onClick={() => updateTodo(id, content)}>
           수정하기
         </TodoButton>*/}
-        <TodoButton onClick={() => removeTodoHandler(id)} className={'remove'}>
-          삭제하기
-        </TodoButton>
       </div>
     </TodoWrapper>
   );

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { css } from 'styled-components';
 
 export const WrapperDesign = styled.div`
   display: flex;
@@ -7,13 +6,12 @@ export const WrapperDesign = styled.div`
   align-items: flex-start;
   padding: 20px;
   gap: 20px;
-  
+
   background-color: ${(props) => props.theme.colors.white};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  
+
   width: 100%;
-  height: 100%;
 `;
 export const Title = styled.div`
   display: flex;

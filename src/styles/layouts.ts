@@ -12,7 +12,7 @@ export const LayoutContainer = styled.div`
   background-color: ${(props) => props.theme.colors.grey100};
 `;
 export const ContainerInner = styled.div`
-  width: 92%;
+  width: 100%;
   height: 100%;
   max-width: calc(100% - 48px);
   margin: 0 auto;

@@ -8,6 +8,7 @@ interface IModalContentProps {
 }
 
 const ModalContent: React.FC<IModalContentProps> = ({ onClose }) => {
+  // @ts-ignore
   const { addTodo } = todoStore();
   const [todo, setTodo] = useState<PostTodoType>({
     title: '',

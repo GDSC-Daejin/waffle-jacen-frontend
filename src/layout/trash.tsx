@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { StackWrapper, TodoSection, TodoWrapper } from './home.styled';
-import { ITodoType2 } from '../types/todo';
 import TodoCard from '../components/TodoCard';
 import { WrapperDesign } from '../components/TodoProgress/styled';
 import { getTrashTodoList, getTrashTodoListByPage } from '../apis';
 // @ts-ignore
 import Pagination from 'react-js-pagination';
 import '../components/common/PageBar/styled.css';
+import { ITodoType } from '../types/todo';
+import { TrashDesign } from './trash.styled';
 
 const TrashLayout = () => {
-  const [todoData, setTodoData] = useState<ITodoType2[]>([
+  const [todoData, setTodoData] = useState<ITodoType[]>([
     {
       id: '',
       title: '',
@@ -30,42 +31,16 @@ const TrashLayout = () => {
 
   const getTodoListCount = async () => {
     const res = await getTrashTodoList();
-    // eslint-disable-next-line no-console
-    console.log(res);
-    /*if (res.data.success) {
-      for (let i = 0; i < res.data.data.todos.length; i++) {
-        todos[i] = res.data.data.todos[i];
-      }
-    }*/
-    /* if (res.data.success) {
-      res.data.data.todos.forEach((todo: ITodoType2) => {
-        setTodoData(todo);
-      })
-    }*/
-
     if (res.data.success) {
-      /*const tempTodoList: ITodoType2[] = [];
-      res.data.data.todos.forEach((todo: ITodoType2) => {
-        tempTodoList.push(todo);
-        console.log(todo)
-      });
-      setTodoData(tempTodoList);*/
       setCount(res.data.data.todos.length);
-      // eslint-disable-next-line no-console
-      console.log(count);
-      //setTodos(tempTodoList);
     }
-    // eslint-disable-next-line no-console
-    console.log('캬캬캬');
   };
 
   const setTodoList = async () => {
-    // eslint-disable-next-line no-console
-    console.log(page);
     const res = await getTrashTodoListByPage(page - 1);
     if (res.data.success) {
-      const tempTodoList: ITodoType2[] = [];
-      res.data.data.todos.forEach((todo: ITodoType2) => {
+      const tempTodoList: ITodoType[] = [];
+      res.data.data.todos.forEach((todo: ITodoType) => {
         tempTodoList.push(todo);
       });
       setTodoData(tempTodoList);
@@ -77,29 +52,31 @@ const TrashLayout = () => {
   }, [page]);
 
   return (
-    <WrapperDesign>
-      <StackWrapper>
-        <TodoSection>
-          {/*TODO 데이터 뿌리기*/}
-          {todoData.map((todo: ITodoType2) => (
-            <TodoWrapper key={todo.id}>
-              <TodoCard {...todo} setTodoList={setTodoList} isTrash={true} />
-            </TodoWrapper>
-          ))}
-        </TodoSection>
-      </StackWrapper>
-      {/*<PageBar page={page} count={count} setPage={setPage} />*/}
-      <Pagination
-        activePage={page}
-        itemsCountPerPage={10}
-        totalItemsCount={count - 1}
-        pageRangeDisplayed={5}
-        prevPageText={'<'}
-        nextPageText={'>'}
-        onChange={handlePageChange}
-        className={'pagination'}
-      />
-    </WrapperDesign>
+    <TrashDesign>
+      <WrapperDesign>
+        <StackWrapper>
+          <TodoSection>
+            {/*TODO 데이터 뿌리기*/}
+            {todoData.map((todo: ITodoType) => (
+              <TodoWrapper key={todo.id}>
+                <TodoCard {...todo} setTodoList={setTodoList} isTrash={true} />
+              </TodoWrapper>
+            ))}
+          </TodoSection>
+        </StackWrapper>
+        {/*<PageBar page={page} count={count} setPage={setPage} />*/}
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={8}
+          totalItemsCount={count - 1}
+          pageRangeDisplayed={5}
+          prevPageText={'<'}
+          nextPageText={'>'}
+          onChange={handlePageChange}
+          className={'pagination'}
+        />
+      </WrapperDesign>
+    </TrashDesign>
   );
 };
 

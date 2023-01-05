@@ -9,21 +9,27 @@ import {
 } from './styled';
 
 const TodoProgress = () => {
+  //const [allCount, setAllCount] = useState(0);
+
+  const allCount = Number(localStorage.getItem('todos-count'));
+  const completedCount = Number(localStorage.getItem('completed-todos-count'));
+  const todoCount = allCount - completedCount;
+
   return (
     <WrapperDesign>
       <Title>진행도</Title>
       <TodoCounterWrapper>
         <TodoCounter>
           <SubTitle>전체</SubTitle>
-          <Count>50</Count>
+          <Count>{allCount}</Count>
         </TodoCounter>
         <TodoCounter>
           <SubTitle>할 일</SubTitle>
-          <Count>33</Count>
+          <Count>{todoCount}</Count>
         </TodoCounter>
         <TodoCounter>
           <SubTitle>완료</SubTitle>
-          <Count>17</Count>
+          <Count>{completedCount}</Count>
         </TodoCounter>
       </TodoCounterWrapper>
     </WrapperDesign>

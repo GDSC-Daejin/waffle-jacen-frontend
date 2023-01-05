@@ -10,7 +10,7 @@ export interface ITodoStoreType {
 export interface GetTodoListType {
   success: boolean;
   data: {
-    todos: ITodoType2[];
+    todos: ITodoType[];
     paging: {
       total_pages: number;
       current_page: number;
@@ -26,6 +26,7 @@ export interface UpdateTodoType {
   title: string;
   content: string;
   completed: boolean;
+  deleted: boolean;
 }
 
 export interface ITodoType {

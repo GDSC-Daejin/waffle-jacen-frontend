@@ -15,7 +15,7 @@ export const StackButton = styled.button`
   border: 1px solid ${({ theme }) => theme.colors.grey600};
   border-radius: 10px;
   color: ${({ theme }) => theme.colors.grey600};
-  font-size: ${({ theme }) => theme.fontSize.body2};
+  font-size: ${({ theme }) => theme.fontSize.textM};
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -28,7 +28,7 @@ export const StackInput = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.grey600};
   border-radius: 10px;
   color: ${({ theme }) => theme.colors.grey600};
-  font-size: ${({ theme }) => theme.fontSize.body2};
+  font-size: ${({ theme }) => theme.fontSize.textM};
   background: transparent;
   flex: 1;
   transition: all 0.2s ease-in-out;
@@ -59,9 +59,8 @@ export const TodoWrapper = styled.div`
 
 export const HomeDesign = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 50px;
-  justify-content: flex-end;
+  justify-content: space-between;
+  height: 600px;
 `;
 export const HomeLeftInner = styled.div`
   display: flex;
@@ -71,5 +70,5 @@ export const HomeLeftInner = styled.div`
 `;
 export const HomeRightInner = styled.div`
   display: flex;
-  width: 70%;
+  width: 63%;
 `;

@@ -10,6 +10,6 @@ const Portal: React.FC<IPortalProps> = ({ children, selector }) => {
   const rootElement = document.querySelector(selector);
 
   return <>{rootElement ? createPortal(children, rootElement) : children}</>;
-}
+};
 
 export default Portal;

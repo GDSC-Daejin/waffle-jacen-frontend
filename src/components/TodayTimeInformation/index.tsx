@@ -8,22 +8,8 @@ import {
 } from './styled';
 import Clock from '../../assets/Clock';
 import CalenderIcon from '../../assets/CalenderIcon';
-import Modal from "../common/Modal";
-import ModalContent from "../common/ModalContent";
 
 const TodayTimeInformation = () => {
-  /*const [currentDate, setCurrnetDate] = useState('')
-  const getStringDate = (currentDate: {
-    toISOString: () => string | any[];
-  }) => {
-    return currentDate.toISOString().slice(0, 10);
-  };
-  getStringDate();*/
-
-  /*const currentDate = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;*/
-
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [currentDate, setCurrentDate] = useState('');
   const dayList = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
